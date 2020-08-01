@@ -33,8 +33,8 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
-inquirer
-.prompt([
+
+const questions = [
   {
     type: "input",
     message: "Enter emloyee name",
@@ -50,48 +50,58 @@ inquirer
     message: "Enter employee email address",
     name: "email"
   },
+  
   {
-    type: "list",
-    message: "What is the role of the employee?",
-    choices: ["Engineer", "Manager", "Employee","Intern"],
-    name: "position"
-  }
-
-])
-.then(function(response) {
-    if(response.position === "Engineer"){
-        inquirer.prompt([
-            {
-                type: "input",
-                message: "What is the ENGINEER Github username?",
-                name: "Github"
-            }
-        ]).then(function (response){
-            console.log(response);
-        })
-    }
-    else if(response.position === "Manager"){
-        inquirer.prompt([
-            {
-                type: "input",
-                message: "What is the MANAGER's office number?",
-                name: "officeNumber"
-            }
-        ]).then(function (response){
-            console.log(response);
-        })
-    }
-    else if(response.position === "Intern"){
-        inquirer.prompt([
-            {
-                type: "input",
-                message: "What school is the INTERN from?",
-                name: "school"
-            }
-        ]).then(function (response){
-            console.log(response);
-        })
+    type: 'confirm',
+    name: 'engineer',
+    message: 'Is the employee and ENGINEER?'
+  },
+  {
+    type: 'input',
+    name: 'Github',
+    message: "What is the ENGINEER's GitHub username?",
+    when: function(answers){
+      return answers.engineer;
     } 
+  },
+  {
+    type: 'confirm',
+    name: "manager",
+    message: "Is the employee a MANAGER?",
+    when: function(answers){
+      return !switchPrompt('engineer')(answers);
+    }
+  },
+  {
+    type: 'input',
+    name: 'officeNumber',
+    message: "What is the MANAGER's office number?",
+    when: switchPrompt('manager'),   
+  },
+  {
+    type: 'confirm',
+    name: "intern",
+    message: "Is the employee an INTERN?",
+    when: function(answers){      
+      return (!switchPrompt('manager')(answers) && !switchPrompt('engineer')(answers));
+    }
+  },
+  {
+    type: 'input',
+    name: 'school',
+    message: "Where did the employee go to school?",
+    when: switchPrompt('intern'),   
+  }
+    
+];
+
+function switchPrompt(res){
+  return function(answers){
+    return answers[res];
+  }
+}
+
+inquirer.prompt(questions).then(function() {    
+
   
 });
-
