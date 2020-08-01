@@ -91,17 +91,33 @@ const questions = [
     name: 'school',
     message: "Where did the employee go to school?",
     when: switchPrompt('intern'),   
-  }
-    
+  },
+  {
+    type: 'confirm',
+    name: 'askAgain',
+    message: 'Want to enter another employee (just hit enter for YES)?',
+    default: true,
+  }    
 ];
 
+//Function to switch prompts depending on answers
 function switchPrompt(res){
   return function(answers){
     return answers[res];
   }
 }
 
-inquirer.prompt(questions).then(function() {    
+//Recursive function for prompts
+function ask() {
+  inquirer.prompt(questions).then((answers) => {    
+    if (answers.askAgain) {
+      ask();
+    } else {
+      console.log('Done');
+    }
+  });
+}
 
-  
-});
+ask();
+
+
