@@ -10,6 +10,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+var employee = [];
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -91,14 +93,39 @@ const questions = [
     name: 'school',
     message: "Where did the employee go to school?",
     when: switchPrompt('intern'),   
-  },
-  {
-    type: 'confirm',
-    name: 'askAgain',
-    message: 'Want to enter another employee (just hit enter for YES)?',
-    default: true,
-  }    
+  }
+  // {
+  //   type: 'confirm',
+  //   name: 'askAgain',
+  //   message: 'Want to enter another employee (just hit enter for YES)?',
+  //   default: true,
+  // }    
 ];
+
+function ask(){
+  inquirer.prompt(questions).then((answers) => {
+    employee.push(answers);
+    inquirer.prompt(
+      {
+        type: 'confirm',
+        name: 'askAgain',
+        message: 'Want to enter another employee (just hit enter for YES)?',
+        default: true,
+      }
+    ).then((response) => {
+      if(response.askAgain === true){
+        ask();
+      }
+      else{
+        console.log("Done");
+        console.log(employee);
+      }
+    })
+    
+  })
+}
+
+ask();
 
 //Function to switch prompts depending on answers
 function switchPrompt(res){
@@ -108,16 +135,18 @@ function switchPrompt(res){
 }
 
 //Recursive function for prompts
-function ask() {
-  inquirer.prompt(questions).then((answers) => {    
-    if (answers.askAgain) {
-      ask();
-    } else {
-      console.log('Done');
-    }
-  });
-}
+// function ask() {
+//   inquirer.prompt(questions).then((answers) => {    
+//     if (answers.askAgain) {
 
-ask();
+//       ask();
+//     } else {
+//       console.log('Done');
+//       console.log(answers);
+//     }
+//   });
+// }
+
+// ask();
 
 
