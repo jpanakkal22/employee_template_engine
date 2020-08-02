@@ -99,7 +99,19 @@ const questions = [
 
 function ask(){
   inquirer.prompt(questions).then((answers) => {
-    employees.push(answers);
+    
+    if(answers.Engineer){
+      const engineer = new Engineer(answers.name, answers.id, answers.email, answers.Github);
+      employees.push(engineer);
+    }
+    else if(answers.Manager){
+      const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+      employees.push(manager);
+    }
+    else{
+      const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+      employees.push(intern);
+    }
     inquirer.prompt(
       {
         type: 'confirm',
@@ -113,8 +125,15 @@ function ask(){
       }
       else{
         console.log("Done");
-        // render(employees);
+        const html = render(employees);
+        console.log(html);
         console.log(employees);
+        fs.writeFile("index.html", html, function(error){
+          if(error){
+            return error;
+          }
+          console.log("File written!");
+        })
       }
     })    
   })
