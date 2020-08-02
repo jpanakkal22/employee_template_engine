@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-var employee = [];
+var employees = [];
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -55,7 +55,7 @@ const questions = [
   
   {
     type: 'confirm',
-    name: 'engineer',
+    name: 'Engineer',
     message: 'Is the employee and ENGINEER?'
   },
   {
@@ -63,48 +63,43 @@ const questions = [
     name: 'Github',
     message: "What is the ENGINEER's GitHub username?",
     when: function(answers){
-      return answers.engineer;
+      return answers.Engineer;
     } 
   },
   {
     type: 'confirm',
-    name: "manager",
+    name: "Manager",
     message: "Is the employee a MANAGER?",
     when: function(answers){
-      return !switchPrompt('engineer')(answers);
+      return !switchPrompt('Engineer')(answers);
     }
   },
   {
     type: 'input',
     name: 'officeNumber',
     message: "What is the MANAGER's office number?",
-    when: switchPrompt('manager'),   
+    when: switchPrompt('Manager'),   
   },
   {
     type: 'confirm',
-    name: "intern",
+    name: "Intern",
     message: "Is the employee an INTERN?",
     when: function(answers){      
-      return (!switchPrompt('manager')(answers) && !switchPrompt('engineer')(answers));
+      return (!switchPrompt('Manager')(answers) && !switchPrompt('Engineer')(answers));
     }
   },
   {
     type: 'input',
     name: 'school',
     message: "Where did the employee go to school?",
-    when: switchPrompt('intern'),   
+    when: switchPrompt('Intern'),   
   }
-  // {
-  //   type: 'confirm',
-  //   name: 'askAgain',
-  //   message: 'Want to enter another employee (just hit enter for YES)?',
-  //   default: true,
-  // }    
+  
 ];
 
 function ask(){
   inquirer.prompt(questions).then((answers) => {
-    employee.push(answers);
+    employees.push(answers);
     inquirer.prompt(
       {
         type: 'confirm',
@@ -118,10 +113,10 @@ function ask(){
       }
       else{
         console.log("Done");
-        console.log(employee);
+        // render(employees);
+        console.log(employees);
       }
-    })
-    
+    })    
   })
 }
 
@@ -134,19 +129,5 @@ function switchPrompt(res){
   }
 }
 
-//Recursive function for prompts
-// function ask() {
-//   inquirer.prompt(questions).then((answers) => {    
-//     if (answers.askAgain) {
-
-//       ask();
-//     } else {
-//       console.log('Done');
-//       console.log(answers);
-//     }
-//   });
-// }
-
-// ask();
 
 
