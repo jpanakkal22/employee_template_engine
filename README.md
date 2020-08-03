@@ -1,5 +1,5 @@
 # Employee Engine Template
-[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+
 
 ## Description
 This project utilized Object Oriented Programming combined with CLI using Node.js to build a template of employees that is generated from command line prompts. An Employee class and Manager, Engineer and Intern subclasses were developed using Test Driven Development where given tests were used to develop the classes. 
@@ -24,7 +24,7 @@ Running app.js from the command line using Node.js will prompt the user to enter
 The Unlicense
 
 ## Badges
-[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
+
 
 ## Contributing 
 none
