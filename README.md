@@ -18,13 +18,13 @@ This project utilized Object Oriented Programming combined with CLI using Node.j
 NPM, Inquirer, Jest
 
 ## Usage
-Running app.js from the command line using Node.js will prompt the user to enter employee information such as name, id and email and also what type of employee he or she is such as Manager, Engineer or Intern. Based on the type of employee, position specific questions are also asked and the end result is an HTML generate with all of the users' information.
+Running app.js from the command line using Node.js will prompt the user to enter employee information such as name, id and email and also what type of employee he or she is such as Manager, Engineer or Intern. Based on the type of employee, position specific questions are also asked, and the end result is an HTML page generated with all of the users' information.
 
 ## License
-The Unlicense
+None
 
 ## Badges
-
+None
 
 ## Contributing 
 none
