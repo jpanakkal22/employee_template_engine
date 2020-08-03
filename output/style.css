@@ -1,0 +1,16 @@
+body {
+    background-color: lightskyblue;
+}
+
+.employee-card {
+    margin: 10px;
+    border: 2px solid lightskyblue;
+}
+.jumbotron, 
+.card-header {
+    background-color: blue;
+    color: white;
+}
+.card-body {
+    background-color: lightsteelblue;
+}
